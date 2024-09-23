@@ -1,0 +1,57 @@
+# Step 1: Import the necessary libraries
+import tkinter as tk
+from tkinter import Label, Entry, Button
+import random
+
+# Step 2: Initialize the game window with the appropriate dimensions and title
+window = tk.Tk()
+window.title("Rock, Paper, Scissors Game")
+window.geometry("400x300")
+
+# Step 3: Set the background color of the window
+window.configure(bg="lightblue")
+
+# Step 4: Create a label for the game title and display it
+title_label = Label(window, text="Rock, Paper, Scissors", font=("Helvetica", 20), bg="lightblue")
+title_label.pack(pady=20)
+
+# Step 5: Prompt the user to choose between rock, paper, or scissors
+prompt_label = Label(window, text="Choose: rock, paper, or scissors", font=("Helvetica", 14), bg="lightblue")
+prompt_label.pack(pady=10)
+
+# Step 6: Create an input field for the user to enter their choice
+user_choice = tk.StringVar()
+input_field = Entry(window, textvariable=user_choice, font=("Helvetica", 14))
+input_field.pack(pady=10)
+
+# Step 7: Generate a random selection for the computer (rock, paper, or scissors)
+choices = ['rock', 'paper', 'scissors']
+
+def play_game():
+    user_selection = user_choice.get().lower()
+    
+    # Step 8: Assign the randomly generated selection
+    computer_selection = random.choice(choices)
+    
+    result = ""
+    if user_selection == computer_selection:
+        result = f"Both chose {user_selection}. It's a tie!"
+    elif (user_selection == 'rock' and computer_selection == 'scissors') or \
+         (user_selection == 'paper' and computer_selection == 'rock') or \
+         (user_selection == 'scissors' and computer_selection == 'paper'):
+        result = f"You chose {user_selection}. Computer chose {computer_selection}. You win!"
+    else:
+        result = f"You chose {user_selection}. Computer chose {computer_selection}. You lose!"
+    
+    result_label.config(text=result)
+
+# Create a button to play the game and display the result
+play_button = Button(window, text="Play", command=play_game, font=("Helvetica", 14))
+play_button.pack(pady=10)
+
+# Label to display the result
+result_label = Label(window, text="", font=("Helvetica", 14), bg="lightblue")
+result_label.pack(pady=20)
+
+# Run the Tkinter event loop
+window.mainloop()
